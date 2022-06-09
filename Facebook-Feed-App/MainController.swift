@@ -15,8 +15,10 @@ class PostCell: LBTAListCell<String> {
     let nameLabel = UILabel(text: "Name Label")
     let dateLabel = UILabel(text: "Friday at 11:11AM")
     let postTextLabel = UILabel(text: "Here is my post text")
-    let imagegeViewGrid = UIView(backgroundColor: .yellow)
+    //let imagegeViewGrid = UIView(backgroundColor: .yellow)
     
+    
+    let photosGridController = PhotosGridController()
     
     override func setupViews() {
         backgroundColor = .white
@@ -26,7 +28,7 @@ class PostCell: LBTAListCell<String> {
                     dateLabel),
                      spacing: 8).padLeft(12).padRight(12).padTop(12),
         postTextLabel,
-              imagegeViewGrid,
+              photosGridController.view,
               spacing:8
         )
     }
@@ -42,7 +44,7 @@ class MainController: LBTAListController<PostCell, String>,
         self.items = ["hello", "world", "1", "2"]
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return .init(width: view.frame.width, height: 300)
+            return .init(width: view.frame.width, height: 450)
         }
 }
 
