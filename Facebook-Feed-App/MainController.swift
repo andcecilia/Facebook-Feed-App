@@ -119,7 +119,37 @@ class MainController: LBTAListHeaderController<PostCell, String, StoryHeader>,
         collectionView.backgroundColor = .init(white: 0.9, alpha: 1)
         
         self.items = ["hello", "world", "1", "2"]
+        
+        setupNavBar()
     }
+    
+    let fbLogoImageView = UIImageView(image: UIImage(named: "fb_logo"), contentMode: .scaleAspectFit)
+    
+    fileprivate func setupNavBar() {
+        let width = view.frame.width - 120 - 16 - 60
+        //navigationItem.title = "my nav bar 123"
+        let titleView = UIView(backgroundColor: .clear)
+        titleView.frame = .init(x: 0, y: 0, width: width, height: 50)
+        
+        let searchButton = UIButton(title: "Search", titleColor: .black)
+        
+        titleView.hstack(fbLogoImageView.withWidth(120), UIView(backgroundColor: .clear).withWidth(width), searchButton)
+        
+        navigationItem.titleView = titleView
+    }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let magicalSafeAreaTop: CGFloat = 88
+        print(scrollView.contentOffset.y)
+        
+        let offset = scrollView.contentOffset.y + magicalSafeAreaTop
+        
+        let alpha: CGFloat = 1 - ((scrollView.contentOffset.y + magicalSafeAreaTop) / magicalSafeAreaTop)
+        
+        fbLogoImageView.alpha = alpha
+        
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return .init(width: view.frame.width, height: 450)
         }
@@ -134,7 +164,7 @@ struct MainPreview: PreviewProvider {
     struct ContainerView: UIViewControllerRepresentable {
         
         func makeUIViewController(context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) -> UIViewController {
-            return MainController()
+            return UINavigationController(rootViewController: MainController())
         }
         
         func updateUIViewController(_ uiViewController: MainPreview.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<MainPreview.ContainerView>) {
