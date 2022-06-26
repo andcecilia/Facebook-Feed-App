@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  nosferatu
-//
-//  Created by Caporal on 02/06/22.
-//
-
 import Foundation
 import UIKit
 

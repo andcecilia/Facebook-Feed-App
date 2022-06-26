@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  nosferatu
-//
-//  Created by Caporal on 02/06/22.
-//
-
 import UIKit
 import SwiftUI
 
@@ -15,7 +8,8 @@ class FSSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowsScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowsScene)
-            window.rootViewController = MainController()
+            //window.rootViewController = MainController()
+            window.rootViewController = UINavigationController(rootViewController: MainController())
             self.window = window
             window.makeKeyAndVisible()
         }

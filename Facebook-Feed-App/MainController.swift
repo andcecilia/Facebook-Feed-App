@@ -69,7 +69,7 @@ class StoryHeader: UICollectionReusableView {
         }
         let gradientLayer = CAGradientLayer()
         
-        fileprivate func setupGradientLayer(){
+        private func setupGradientLayer(){
             
             gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
             gradientLayer.locations = [0.7,1.1]
@@ -111,8 +111,11 @@ class MainController: LBTAListHeaderController<PostCell, String, StoryHeader>,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 12, left: 0, bottom: 0, right: 0)
-        //aqui cria a barrinha cinza antes do primeiro post, mas na verdade encolhe o retangulo de cima?
+        
     }
+    
+    let fbLogoImageView = UIImageView(image: UIImage(named: "fb_logo"), contentMode: .scaleAspectFit)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,20 +126,27 @@ class MainController: LBTAListHeaderController<PostCell, String, StoryHeader>,
         setupNavBar()
     }
     
-    let fbLogoImageView = UIImageView(image: UIImage(named: "fb_logo"), contentMode: .scaleAspectFit)
+    //let fbLogoImageView = UIImageView(image: UIImage(named: "fb_logo"), contentMode: .scaleAspectFit)
     
-    fileprivate func setupNavBar() {
+        private func setupNavBar() {
         let width = view.frame.width - 120 - 16 - 60
         //navigationItem.title = "my nav bar 123"
         let titleView = UIView(backgroundColor: .clear)
-        titleView.frame = .init(x: 0, y: 0, width: width, height: 50)
+        titleView.frame = .init(x: 0, y: 0, width: 200, height: 100)
         
         let searchButton = UIButton(title: "Search", titleColor: .black)
         
-        titleView.hstack(fbLogoImageView.withWidth(120), UIView(backgroundColor: .clear).withWidth(width), searchButton)
+        titleView.hstack(fbLogoImageView.withWidth(120), UIView(backgroundColor: .clear).withWidth(200), searchButton)
         
         navigationItem.titleView = titleView
+            
     }
+    
+    func viewWillDAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            navigationController?.navigationBar.transform = .identity
+    }
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let magicalSafeAreaTop: CGFloat = 88
         print(scrollView.contentOffset.y)
